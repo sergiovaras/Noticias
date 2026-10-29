@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Al Día | Noticias Globales</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        header {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #e74c3c;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-size: 1rem;
+            color: #bdc3c7;
+            margin-top: 5px;
+        }
+        
+        /* Contenedor Principal */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Sección de Noticias */
+        .main-news {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+        .card.urgent {
+            border-left-color: #e74c3c;
+        }
+        .badge {
+            background-color: #3498db;
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        .badge.red { background-color: #e74c3c; }
+        .card h2 {
+            margin: 10px 0;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        .card p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .read-more {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Barra Lateral (Sidebar) */
+        sidebar {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        sidebar ul {
+            list-style: none;
+        }
+        sidebar li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        sidebar a {
+            color: #333;
+            text-decoration: none;
+        }
+        sidebar a:hover {
+            color: #e74c3c;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* Adaptación para Celulares */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MUNDO AL DÍA</h1>
+        <p>Noticias globales en tiempo real</p>
+    </header>
+
+    <div class="container">
+        <!-- Columna de Noticias Principales -->
+        <main class="main-news">
+            
+            <!-- Noticia 1 -->
+            <article class="card urgent">
+                <span class="badge red">Última Hora</span>
+                <h2>Grave accidente de trenes de alta velocidad en Toledo genera conmoción en España</h2>
+                <p>Las autoridades investigan los sistemas de control tras un fuerte impacto entre dos formaciones. Equipos de rescate trabajan en la zona y se reportan víctimas de múltiples nacionalidades.</p>
+                <a href="#" class="read-more">Leer noticia completa →</a>
+            </article>
+
+            <!-- Noticia 2 -->
+            <article class="card">
+                <span class="badge">Política</span>
+                <h2>Tensión en el Medio Oriente: Elecciones en Israel dejan un panorama incierto</h2>
+                <p>Los primeros resultados muestran un empate técnico entre los principales bloques políticos. Los partidos árabes emergen como piezas clave para la formación de un nuevo gobierno.</p>
+                <a href="#" class="read-more">Leer noticia completa →</a>
+            </article>
+
+            <!-- Noticia 3 -->
+            <article class="card">
+                <span class="badge">Economía</span>
+                <h2>Giro inesperado en las finanzas europeas tras un importante anuncio del BCE</h2>
+                <p>Los mercados internacionales reaccionan con volatilidad ante los cambios sorpresivos en la dirección del Banco Central Europeo. Analistas prevén jornadas de alta incertidumbre.</p>
+                <a href="#" class="read-more">Leer noticia completa →</a>
+            </article>
+
+        </main>
+
+        <!-- Barra Lateral -->
+        <sidebar>
+            <h3>Más Leídas</h3>
+            <ul>
+                <li>• <a href="#">Harry Kane se queda con el máximo galardón del fútbol mundial</a></li>
+                <li>• <a href="#">Revuelo internacional por movimientos políticos recientes en Sudamérica</a></li>
+                <li>• <a href="#">Nuevos esfuerzos diplomáticos buscan abrir canales de diálogo en Europa del Este</a></li>
+            </ul>
+        </sidebar>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Mundo Al Día - Creado con GitHub Pages</p>
+    </footer>
+
+</body>
+</html>
