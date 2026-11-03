@@ -4,143 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundo Al Día | Noticias Globales</title>
-    <style>
-        /* Estilos Generales */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f6f9;
-            color: #333;
-        }
-        header {
-            background-color: #1a252f;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 4px solid #e74c3c;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-        }
-        header p {
-            font-size: 1rem;
-            color: #bdc3c7;
-            margin-top: 5px;
-        }
-        
-        /* Contenedor Principal */
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        /* Sección de Noticias */
-        .main-news {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        .card {
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 5px solid #3498db;
-        }
-        .card.urgent {
-            border-left-color: #e74c3c;
-        }
-        .badge {
-            background-color: #3498db;
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            border-radius: 3px;
-        }
-        .badge.red { background-color: #e74c3c; }
-        .card h2 {
-            margin: 10px 0;
-            font-size: 1.5rem;
-            color: #2c3e50;
-        }
-        .card p {
-            color: #555;
-            margin-bottom: 15px;
-        }
-        .read-more {
-            display: inline-block;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .read-more:hover {
-            text-decoration: underline;
-        }
-
-        /* Barra Lateral (Sidebar) */
-        sidebar {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            height: fit-content;
-        }
-        sidebar h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 5px;
-        }
-        sidebar ul {
-            list-style: none;
-        }
-        sidebar li {
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-        }
-        sidebar a {
-            color: #333;
-            text-decoration: none;
-        }
-        sidebar a:hover {
-            color: #e74c3c;
-        }
-
-        /* Pie de página */
-        footer {
-            background-color: #1a252f;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            margin-top: 40px;
-            font-size: 0.9rem;
-        }
-
-        /* Adaptación para Celulares */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style/noticias.css">
 </head>
 <body>
 
     <header>
-        <h1>MUNDO AL DÍA</h1>
-        <p>Noticias globales en tiempo real</p>
+        <nav class="navbar">
+            <div class="logo">Mundo Al Día</div>
+            <input type="checkbox" id="menu-check">
+            
+            <label for="menu-check" class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+            </label>
+            <ul class="nav-links" >
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Política</a></li>
+                <li><a href="#">Economía</a></li>
+                <li><a href="#">Deportes</a></li>
+                <li><a href="#">Tecnología</a></li>
+            </ul>
+        </nav>
+        <div class="header-content">
+            <h1>MUNDO AL DÍA</h1>
+            <p>Noticias globales en tiempo real</p>
+        </div>
     </header>
 
     <div class="container">
@@ -175,18 +64,20 @@
 
         <!-- Barra Lateral -->
         <sidebar>
-            <h3>Más Leídas</h3>
-            <ul>
-                <li>• <a href="#">Harry Kane se queda con el máximo galardón del fútbol mundial</a></li>
-                <li>• <a href="#">Revuelo internacional por movimientos políticos recientes en Sudamérica</a></li>
-                <li>• <a href="#">Nuevos esfuerzos diplomáticos buscan abrir canales de diálogo en Europa del Este</a></li>
-            </ul>
+            <h3>Ultimas Novedades Globales</h3>
+            <!-- El botón que activa la función manual en el JS -->
+            <button id="refresh-news" class="btn-refresh">🔄 Actualizar Ahora</button>
+    
+           <!-- La lista vacía donde el JS inyectará las noticias automáticamente -->
+           <ul id="live-news-feed">
+            <li class="loading">• Sincronizando con agencias de noticias en tiempo real...</li>
+           </ul>
         </sidebar>
     </div>
 
     <footer>
-        <p>&copy; 2026 Mundo Al Día - Creado con GitHub Pages</p>
+        <p>&copy; 2026 Mundo Al Día - Creado por Sergio Varas</p>
     </footer>
-
+    <script src="javascript/noticias.js"></script>
 </body>
 </html>
