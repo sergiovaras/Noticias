@@ -1,7 +1,7 @@
-// Usamos el endpoint oficial de datos JSON de la API abierta (CORS libre para navegadores)
-const API_URL = "https://spaceflightnewsapi.net";
+// Tu URL exacta de NewsData.io combinada con el proxy para que funcione en GitHub Pages
+const API_URL = "https://herokuapp.com";
 
-async function actualizarTitularesGlovales() {
+async function actualizarTitularesGlobales() {
     const contenedorFeed = document.getElementById("live-news-feed");
     if (!contenedorFeed) return;
 
@@ -9,49 +9,52 @@ async function actualizarTitularesGlovales() {
         const peticion = await fetch(API_URL);
         
         if (!peticion.ok) {
-            throw new Error(`Error en la solicitud: ${peticion.status}`);
+            throw new Error(`Error en la solicitud de noticias: ${peticion.status}`);
         }
 
         const datos = await peticion.json();
 
-        // Estructura para renderizar los datos correctos de la nueva API abierta
+        // Validamos que el servidor de NewsData devuelva resultados válidos
         if (datos.results && datos.results.length > 0) {
             contenedorFeed.innerHTML = "";
+            
+            // Limitamos a mostrar un máximo de 5 titulares en tu barra lateral
             const ultimasNoticias = datos.results.slice(0, 5);
 
             ultimasNoticias.forEach(articulo => {
                 const itemNoticia = document.createElement("li");
 
-                // Mapeamos las propiedades nativas de la API: news_site y url
-                const medioOrigen = articulo.news_site ? articulo.news_site.toUpperCase() : 'NOTICIA';  
+                // Mapeamos el nombre del periódico original (ej: CLARIN, EL PAIS, etc.)
+                const medioOrigen = articulo.source_id ? articulo.source_id.toUpperCase() : 'NOTICIA';  
             
+                // Inyectamos el enlace original y el título de la noticia
                 itemNoticia.innerHTML = ` 
-                    <a href="${articulo.url}" target="_blank" rel="noopener noreferrer">
+                    <a href="${articulo.link}" target="_blank" rel="noopener noreferrer">
                         <strong>[${medioOrigen}]</strong> ${articulo.title}
                     </a>
                 `;
                 contenedorFeed.appendChild(itemNoticia);
             });
         } else {
-            contenedorFeed.innerHTML = "<li>No se encontraron noticias recientes.</li>";
+            contenedorFeed.innerHTML = "<li>No se encontraron noticias recientes con esos filtros.</li>";
         }   
     } catch (error) {
         console.error("Error al obtener las noticias:", error);
-        contenedorFeed.innerHTML = "<li>Error al cargar las noticias. Por favor, inténtelo más tarde.</li>";
+        contenedorFeed.innerHTML = "<li>Error al cargar las noticias de última hora.</li>";
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    actualizarTitularesGlovales();
+    actualizarTitularesGlobales();
 
-    // Consulta automática en segundo plano cada 3 minutos sin refrescar la pantalla
-    setInterval(actualizarTitularesGlovales, 180000);
+    // Dinámico: Consulta automáticamente a NewsData en segundo plano cada 3 minutos
+    setInterval(actualizarTitularesGlobales, 180000);
 
-    // Vinculación segura del botón de actualización manual
+    // Vinculación del botón de refresco manual
     const botonRefrescar = document.getElementById("refresh-news");
     if (botonRefrescar) {
-        botonRefrescar.addEventListener("click", () => {
-            actualizarTitularesGlovales();
-        });
+        botonRefrescar.addEventListener("click", actualizarTitularesGlobales);
     }
 });
+
+
