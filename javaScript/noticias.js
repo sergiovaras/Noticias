@@ -1,60 +1,88 @@
-// Tu URL exacta de NewsData.io combinada con el proxy para que funcione en GitHub Pages
-const API_URL = "https://herokuapp.com";
+document.addEventListener("DOMContentLoaded", () => {
 
-async function actualizarTitularesGlobales() {
-    const contenedorFeed = document.getElementById("live-news-feed");
-    if (!contenedorFeed) return;
+    const feed = document.getElementById("live-news-feed");
+    const btnRefresh = document.getElementById("refresh-news");
 
-    try {
-        const peticion = await fetch(API_URL);
-        
-        if (!peticion.ok) {
-            throw new Error(`Error en la solicitud de noticias: ${peticion.status}`);
-        }
+    // REEMPLAZA POR TU NUEVA API KEY
+    const API_KEY = "TU_API_KEY";
 
-        const datos = await peticion.json();
+    async function actualizarTitularesGlobales() {
 
-        // Validamos que el servidor de NewsData devuelva resultados válidos
-        if (datos.results && datos.results.length > 0) {
-            contenedorFeed.innerHTML = "";
-            
-            // Limitamos a mostrar un máximo de 5 titulares en tu barra lateral
-            const ultimasNoticias = datos.results.slice(0, 5);
+        try {
 
-            ultimasNoticias.forEach(articulo => {
-                const itemNoticia = document.createElement("li");
+            feed.innerHTML = `
+                <li class="loading">
+                    🔄 Actualizando noticias...
+                </li>
+            `;
 
-                // Mapeamos el nombre del periódico original (ej: CLARIN, EL PAIS, etc.)
-                const medioOrigen = articulo.source_id ? articulo.source_id.toUpperCase() : 'NOTICIA';  
-            
-                // Inyectamos el enlace original y el título de la noticia
-                itemNoticia.innerHTML = ` 
-                    <a href="${articulo.link}" target="_blank" rel="noopener noreferrer">
-                        <strong>[${medioOrigen}]</strong> ${articulo.title}
+            const url = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&country=ar,br,co,sv,fr&language=es,en&category=politics,technology,sports,business,entertainment`;
+
+            const respuesta = await fetch(url);
+
+            if (!respuesta.ok) {
+                throw new Error(`HTTP ${respuesta.status}`);
+            }
+
+            const datos = await respuesta.json();
+
+            console.log(datos);
+
+            feed.innerHTML = "";
+
+            if (!datos.results || datos.results.length === 0) {
+
+                feed.innerHTML = `
+                    <li>No se encontraron noticias.</li>
+                `;
+                return;
+            }
+
+            datos.results.slice(0, 10).forEach(noticia => {
+
+                const li = document.createElement("li");
+
+                li.innerHTML = `
+                    <a href="${noticia.link}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        ${noticia.title}
                     </a>
                 `;
-                contenedorFeed.appendChild(itemNoticia);
-            });
-        } else {
-            contenedorFeed.innerHTML = "<li>No se encontraron noticias recientes con esos filtros.</li>";
-        }   
-    } catch (error) {
-        console.error("Error al obtener las noticias:", error);
-        contenedorFeed.innerHTML = "<li>Error al cargar las noticias de última hora.</li>";
-    }
-}
 
-document.addEventListener("DOMContentLoaded", () => {
+                feed.appendChild(li);
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Error en actualizarTitularesGlobales:",
+                error
+            );
+
+            feed.innerHTML = `
+                <li style="color:red;">
+                    ❌ Error al cargar noticias
+                </li>
+            `;
+        }
+    }
+
+    if (btnRefresh) {
+        btnRefresh.addEventListener(
+            "click",
+            actualizarTitularesGlobales
+        );
+    }
+
     actualizarTitularesGlobales();
 
-    // Dinámico: Consulta automáticamente a NewsData en segundo plano cada 3 minutos
-    setInterval(actualizarTitularesGlobales, 180000);
+    // Actualización automática cada 5 minutos
+    setInterval(
+        actualizarTitularesGlobales,
+        300000
+    );
 
-    // Vinculación del botón de refresco manual
-    const botonRefrescar = document.getElementById("refresh-news");
-    if (botonRefrescar) {
-        botonRefrescar.addEventListener("click", actualizarTitularesGlobales);
-    }
 });
-
 
