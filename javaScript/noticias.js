@@ -1,4 +1,4 @@
-const API_URL = "https://newsdata.io";
+const API_URL = "https://spaceflightnewsapi.net";
 
 async function actualizarTitularesGlovales() {
     const contenedorFeed = document.getElementById("live-news-feed");
