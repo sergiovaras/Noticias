@@ -1,4 +1,5 @@
-const API_URL =  "https://newsdata.io";
+// CORREGIDO: Subdominio 'api' y ruta exacta a la colección de artículos v4
+const API_URL = "https://spaceflightnewsapi.net";
 
 async function actualizarTitularesGlovales() {
     const contenedorFeed = document.getElementById("live-news-feed");
@@ -9,44 +10,46 @@ async function actualizarTitularesGlovales() {
             throw new Error(`Error en la solicitud: ${peticion.status}`);
         }
 
-        ///verificamos que la API decuelva resultados validos///
+        // CORREGIDO: Falta transformar la petición cruda a un objeto JSON legible
+        const datos = await peticion.json();
+
+        // Verificamos que la API devuelva resultados válidos
         if (datos.results && datos.results.length > 0) {
             contenedorFeed.innerHTML = "";
-            // limitamos a mostrar un maximo de 5 noticias para no saturar la pagina //
             const ultimasNoticias = datos.results.slice(0, 5);
 
             ultimasNoticias.forEach(articulo => {
                 const itemNoticia = document.createElement("li");
 
-            //formateamos el nombre del periodico o fuente de origen//
                 const medioOrigen = articulo.news_site ? articulo.news_site.toUpperCase() : 'NOTICIA';  
             
-            //Estrutura del enlace que abrira en pestaña  nueva//
-            itemNoticia.innerHTML = ` 
-                <a href="${articulo.link}" target="_blank" rel="noopener noreferrer">
+                // CORREGIDO: Cambiado articulo.link por articulo.url para que abra la noticia original
+                itemNoticia.innerHTML = ` 
+                    <a href="${articulo.url}" target="_blank" rel="noopener noreferrer">
                         <strong>[${medioOrigen}]</strong> ${articulo.title}
-                </a>
-            `;
-            contenedorFeed.appendChild(itemNoticia);
+                    </a>
+                `;
+                contenedorFeed.appendChild(itemNoticia);
             });
-        }else{
+        } else {
             contenedorFeed.innerHTML = "<li>No se encontraron noticias recientes.</li>";
         }   
-    }catch (error) {
+    } catch (error) {
         console.error("Error al obtener las noticias:", error);
         contenedorFeed.innerHTML = "<li>Error al cargar las noticias. Por favor, inténtelo más tarde.</li>";
     }
 }
 
-document.addEventListener("DOMContentLoaded", () =>{
-
+document.addEventListener("DOMContentLoaded", () => {
     actualizarTitularesGlovales();
-//Dinamico: ejecuta la consulta automaticamente en segundo plano cada 3 minuto//
-   setInterval(actualizarTitularesGlovales, 180000) ;
 
-//Vinculacion del boton de actualizacion manual por si el usuario quiere  refrescar
-   const botonRefrescar = document.getElementById("refresh-news");
-   botonRefrescar.addEventListener("click", () => {
-       actualizarTitularesGlovales();
-   });
-});   
+    // Dinámico: ejecuta la consulta automáticamente en segundo plano cada 3 minutos
+    setInterval(actualizarTitularesGlovales, 180000);
+
+    const botonRefrescar = document.getElementById("refresh-news");
+    if (botonRefrescar) {
+        botonRefrescar.addEventListener("click", () => {
+            actualizarTitularesGlovales();
+        });
+    }
+});
