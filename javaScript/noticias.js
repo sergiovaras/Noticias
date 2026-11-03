@@ -1,19 +1,20 @@
-// CORREGIDO: Subdominio 'api' y ruta exacta a la colección de artículos v4
+// Usamos el endpoint oficial de datos JSON de la API abierta (CORS libre para navegadores)
 const API_URL = "https://spaceflightnewsapi.net";
 
 async function actualizarTitularesGlovales() {
     const contenedorFeed = document.getElementById("live-news-feed");
+    if (!contenedorFeed) return;
 
     try {
         const peticion = await fetch(API_URL);
+        
         if (!peticion.ok) {
             throw new Error(`Error en la solicitud: ${peticion.status}`);
         }
 
-        // CORREGIDO: Falta transformar la petición cruda a un objeto JSON legible
         const datos = await peticion.json();
 
-        // Verificamos que la API devuelva resultados válidos
+        // Estructura para renderizar los datos correctos de la nueva API abierta
         if (datos.results && datos.results.length > 0) {
             contenedorFeed.innerHTML = "";
             const ultimasNoticias = datos.results.slice(0, 5);
@@ -21,9 +22,9 @@ async function actualizarTitularesGlovales() {
             ultimasNoticias.forEach(articulo => {
                 const itemNoticia = document.createElement("li");
 
+                // Mapeamos las propiedades nativas de la API: news_site y url
                 const medioOrigen = articulo.news_site ? articulo.news_site.toUpperCase() : 'NOTICIA';  
             
-                // CORREGIDO: Cambiado articulo.link por articulo.url para que abra la noticia original
                 itemNoticia.innerHTML = ` 
                     <a href="${articulo.url}" target="_blank" rel="noopener noreferrer">
                         <strong>[${medioOrigen}]</strong> ${articulo.title}
@@ -43,9 +44,10 @@ async function actualizarTitularesGlovales() {
 document.addEventListener("DOMContentLoaded", () => {
     actualizarTitularesGlovales();
 
-    // Dinámico: ejecuta la consulta automáticamente en segundo plano cada 3 minutos
+    // Consulta automática en segundo plano cada 3 minutos sin refrescar la pantalla
     setInterval(actualizarTitularesGlovales, 180000);
 
+    // Vinculación segura del botón de actualización manual
     const botonRefrescar = document.getElementById("refresh-news");
     if (botonRefrescar) {
         botonRefrescar.addEventListener("click", () => {
