@@ -5,7 +5,9 @@ async function actualizarTitularesGlovales() {
 
     try {
         const peticion = await fetch(API_URL);
-        const datos = await peticion.json();
+        if (!peticion.ok) {
+            throw new Error(`Error en la solicitud: ${peticion.status}`);
+        }
 
         ///verificamos que la API decuelva resultados validos///
         if (datos.results && datos.results.length > 0) {
@@ -17,7 +19,7 @@ async function actualizarTitularesGlovales() {
                 const itemNoticia = document.createElement("li");
 
             //formateamos el nombre del periodico o fuente de origen//
-                const medioOrigen = articulo.source_id ? articulo.source_id.toUpperCase(): 'NOTICIA';  
+                const medioOrigen = articulo.news_site ? articulo.news_site.toUpperCase() : 'NOTICIA';  
             
             //Estrutura del enlace que abrira en pestaña  nueva//
             itemNoticia.innerHTML = ` 
