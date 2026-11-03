@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnRefresh = document.getElementById("refresh-news");
 
     // REEMPLAZA POR TU NUEVA API KEY
-    const API_KEY = "https://newsdata.io/api/1/latest?apikey=pub_9eb7a524f818492c8713c25f2331d335&qInTitle=ultima hora&country=ar,br,co,sv,fr&language=en,es&category=entertainment,politics,technology,sports,business";
+    const API_KEY ="https://newsdata.io/api/1/latest?apikey=pub_9eb7a524f818492c8713c25f2331d335&qInTitle=Noticias&country=ar,co,sv&language=es&category=world";
 
     async function actualizarTitularesGlobales() {
 
