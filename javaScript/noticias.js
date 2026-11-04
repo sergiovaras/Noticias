@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const feed = document.getElementById("live-news-feed");
     const btnRefresh = document.getElementById("refresh-news");
 
-    // REEMPLAZA POR TU NUEVA API KEY
-    const API_KEY ="https://newsdata.io/api/1/latest?apikey=pub_9eb7a524f818492c8713c25f2331d335&qInTitle=Noticias&country=ar,co,sv&language=es&category=world";
+    // REEMPLAZA ÚNICAMENTE CON TU CLAVE (ej: "pub_9eb7a524...")
+    const API_KEY = "pub_9eb7a524f818492c8713c25f2331d335";
 
     async function actualizarTitularesGlobales() {
 
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </li>
             `;
 
+            // Se arma la URL correctamente con la clave limpia y los parámetros deseados
             const url = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&country=ar,br,co,sv,fr&language=es,en&category=politics,technology,sports,business,entertainment`;
 
             const respuesta = await fetch(url);
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <a href="${noticia.link}"
                        target="_blank"
                        rel="noopener noreferrer">
-                        ${noticia.title}
+                         ${noticia.title}
                     </a>
                 `;
 
@@ -85,4 +86,3 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
-
