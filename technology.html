@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Al Día | Noticias Globales</title>
+    <link rel="stylesheet" href="style/noticias.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Mundo Al Día</div>
+            <input type="checkbox" id="menu-check">
+            
+            <label for="menu-check" class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link" data-category="world">Inicio</a></li>
+                <li><a href="politics.html"class="nav-link" data-category="politics">Política</a></li>
+                <li><a href="politics.html"class="nav-link" data-category="business">Economía</a></li>
+                <li><a href="sports.html"class="nav-link" data-category="sports">Deportes</a></li>
+                <li><a href="technology.html"class="nav-link" data-category="technology">Tecnología</a></li>
+            </ul>
+        </nav>
+        <div class="header-content">
+            <span class="header-badge">🌐 Cobertura Global en Vivo</span>
+            <h1>MUNDO AL DÍA</h1>
+            <p>Noticias globales en tiempo real sincronizadas con agencias internacionales</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- COLUMNA PRINCIPAL: ÚLTIMAS NOVEDADES GLOBALES EN TIEMPO REAL (EN TARJETAS) -->
+        <main class="main-news">
+            <div class="main-header-title">
+                <h2>Últimas Novedades Tecnología</h2>
+                <button id="refresh-news" class="btn-refresh">🔄 Actualizar</button>
+            </div>
+
+            <!-- El contenedor dinámico donde el JavaScript inyectará las tarjetas -->
+            <div id="live-news-feed" class="news-grid">
+                <div class="card loading-card">
+                    <p>🔄 Sincronizando con agencias de noticias en tiempo real...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- BARRA LATERAL (ASIDE): Noticias estáticas secundarias -->
+        <aside class="sidebar-secondary">
+            <h3>Destacadas del Día</h3>
+            
+            <!-- Noticia Estática 1 -->
+            <article class="sidebar-card urgent">
+                <span class="badge red">Última Hora</span>
+                <h4>Grave accidente de trenes de alta velocidad en Toledo</h4>
+                <a href="#" class="read-more-sm">Leer más →</a>
+            </article>
+
+            <!-- Noticia Estática 2 -->
+            <article class="sidebar-card">
+                <span class="badge">Política</span>
+                <h4>Tensión en el Medio Oriente: Elecciones en Israel</h4>
+                <a href="#" class="read-more-sm">Leer más →</a>
+            </article>
+
+            <!-- Noticia Estática 3 -->
+            <article class="sidebar-card">
+                <span class="badge">Economía</span>
+                <h4>Giro inesperado en las finanzas europeas</h4>
+                <a href="#" class="read-more-sm">Leer más →</a>
+            </article>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Mundo Al Día - Creado por Sergio Varas</p>
+    </footer>
+
+    <script src="javaScript/noticias.js"></script>
+</body>
+</html>
