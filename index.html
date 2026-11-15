@@ -19,11 +19,11 @@
                 <span></span>
             </label>
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link" data-category="world">Inicio</a></li>
-                <li><a href="politics.html"class="nav-link" data-category="politics">Política</a></li>
-                <li><a href="politics.html"class="nav-link" data-category="business">Economía</a></li>
-                <li><a href="sports.html"class="nav-link" data-category="sports">Deportes</a></li>
-                <li><a href="technology.html"class="nav-link" data-category="technology">Tecnología</a></li>
+                <li><a href="#" class="nav-link" data-category="world">Inicio</a></li>
+                <li><a href="#" class="nav-link" data-category="politics">Política</a></li>
+                <li><a href="#" class="nav-link" data-category="business">Economía</a></li>
+                <li><a href="#" class="nav-link" data-category="sports">Deportes</a></li>
+                <li><a href="#" class="nav-link" data-category="technology">Tecnología</a></li>
             </ul>
         </nav>
         <div class="header-content">
@@ -37,7 +37,7 @@
         <!-- COLUMNA PRINCIPAL: ÚLTIMAS NOVEDADES GLOBALES EN TIEMPO REAL (EN TARJETAS) -->
         <main class="main-news">
             <div class="main-header-title">
-                <h2>Últimas Novedades </h2>
+                <h2>Últimas Novedades</h2>
                 <button id="refresh-news" class="btn-refresh">🔄 Actualizar</button>
             </div>
 
@@ -49,18 +49,37 @@
             </div>
         </main>
 
-        <!-- BARRA LATERAL (ASIDE): Noticias estáticas secundarias -->
+        <!-- BARRA LATERAL (ASIDE): Destacadas / Urgentes -->
         <aside class="sidebar-secondary">
+            <div class="weather-widget">
+                <div class="weather-header">
+
+                    <h3>🌤️ El Clima</h3>
+            <!-- Selector de ciudad -->
+                   <select id="city-selector" class="city-select">
+                        <option value="-34.9214,-57.9545">La Plata, AR</option>
+                        <option value="-34.6037,-58.3816">Buenos Aires, AR</option>
+                        <option value="4.7110,-74.0721">Bogotá, CO</option>
+                        <option value="40.4168,-3.7038">Madrid, ES</option>
+                        <option value="13.6929,-89.2182">San Salvador, SV</option>
+                    </select>
+                </div>
+                <div id="weather-info" class="weather-body">
+                    <p style="font-size: 0.85rem; color: #64748b;">Cargando clima...</p>
+                </div>
+            </div>   
+            
             <div class="sidebar-header">
                 <span class="pulse-dot"></span>
                 <h3>Destacadas / Urgentes</h3>
             </div>
             
-            <div id="urgent-newa-feed" class="sibebar-feed">
-                <div class="siber-card">
-                    <p style="font-size: 0.85rem; color: #64748b;">🔄 Cargando urgencias..</p>
+            <!-- ID y clases corregidas -->
+            <div id="urgent-news-feed" class="sidebar-feed">
+                <div class="sidebar-card">
+                    <p style="font-size: 0.85rem; color: #64748b;">🔄 Cargando urgencias...</p>
                 </div>
-            </div>        
+            </div>         
         </aside>
     </div>
 
