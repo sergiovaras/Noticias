@@ -1,0 +1,46 @@
+name: Publicar Mundo Al Día en Facebook
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 12:00 UTC (9:00 AM en Argentina)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Permite ejecutarlo manualmente con un botón para probarlo ahora
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Elegir sección del día y publicar en Facebook
+        run: |
+          DIA=$(date +%u)
+          case $DIA in
+            1)
+              URL="https://sergiovaras.github.io/Noticias/"
+              MSG="🌍 Arranca la semana bien informado con las noticias globales en tiempo real de Mundo Al Día."
+              ;;
+            2)
+              URL="https://sergiovaras.github.io/Noticias/politics.html"
+              MSG="🏛️ Toda la actualidad y el análisis político internacional al instante en Mundo Al Día."
+              ;;
+            3)
+              URL="https://sergiovaras.github.io/Noticias/technology.html"
+              MSG="💻 Novedades, avances e innovación en nuestra sección de Tecnología de Mundo Al Día."
+              ;;
+            4)
+              URL="https://sergiovaras.github.io/Noticias/business.html"
+              MSG="📈 Mercados, finanzas y economía global en vivo en Mundo Al Día."
+              ;;
+            5)
+              URL="https://sergiovaras.github.io/Noticias/sports.html"
+              MSG="⚽ Resultados, actualidad y cobertura deportiva al minuto en Mundo Al Día."
+              ;;
+            *)
+              URL="https://sergiovaras.github.io/Noticias/"
+              MSG="📰 Cobertura global en vivo las 24 horas. Entra a leer los titulares de hoy en Mundo Al Día."
+              ;;
+          esac
+
+          curl -s -X POST "https://graph.facebook.com/v21.0/${{ secrets.FB_PAGE_ID }}/feed" \
+            -d "message=$MSG" \
+            -d "link=$URL" \
+            -d "access_token=${{ secrets.FB_PAGE_TOKEN }}"
